@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0c3b2e">
+<title>گل‌نما</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--pitch:#0c3b2e;--pitch2:#14543f;--chalk:#f4f6f1;--card:#fff;--ink:#16211c;--mute:#6b7a72;--line:#e1e7e0;--live:#d7263d;--gold:#f2c230;--sel:#e8f1ea;
+--safe-t:env(safe-area-inset-top,0px);--safe-b:env(safe-area-inset-b,0px)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:Vazirmatn,Tahoma,"Segoe UI",sans-serif;background:var(--chalk);color:var(--ink);display:flex;flex-direction:column;font-size:15px}
+header{background:var(--pitch);color:#fff;padding:calc(12px + var(--safe-t)) 16px 12px}
+header h1{font-size:20px;font-weight:800;display:flex;align-items:center;gap:8px}
+header h1 i{width:14px;height:14px;border-radius:50%;background:var(--gold);display:inline-block}
+.note{font-size:12px;color:#b9d3c7;margin-top:4px}
+main{flex:1;overflow-y:auto;padding:12px 12px 16px}
+nav{display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;border:0;background:none;padding:11px 0 9px;font:inherit;font-size:13px;color:var(--mute);border-top:3px solid transparent}
+nav button.on{color:var(--pitch);font-weight:800;border-top-color:var(--pitch)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);border-radius:20px;padding:6px 14px;font:inherit;font-size:13px;color:var(--ink)}
+.chip.on{background:var(--pitch);color:#fff;border-color:var(--pitch)}
+.lg{font-weight:800;font-size:13px;color:var(--pitch2);margin:12px 4px 6px}
+.m{display:grid;grid-template-columns:1fr 78px 1fr;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 10px;margin-bottom:6px;gap:6px}
+.tm{display:flex;align-items:center;gap:8px;min-width:0;font-weight:600}
+.tm span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.away{flex-direction:row-reverse;justify-content:flex-start}
+.sc{text-align:center;line-height:1.35}
+.sc b{font-size:19px;font-weight:800;letter-spacing:1px}
+.sc small{display:block;font-size:11px;color:var(--mute)}
+.sc.live b{color:var(--live)}
+.sc.live small{color:var(--live);font-weight:800}
+.sc.live small:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--live);margin-left:4px;animation:p 1.2s infinite}
+@keyframes p{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.sc.live small:before{animation:none}}
+.badge.cr{background:none}.badge img{width:100%;height:100%;object-fit:contain}
+.badge{flex:none;width:26px;height:26px;border-radius:50%;color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13px}
+th{background:var(--sel);color:var(--pitch);font-weight:600;padding:8px 4px;text-align:center}
+td{padding:9px 4px;text-align:center;border-top:1px solid var(--line)}
+td.n,th.n{text-align:right;padding-right:8px}
+td.n .tm{font-weight:600}
+td.pt{font-weight:800}
+tr.z1 td:first-child{box-shadow:inset -3px 0 var(--pitch2)}
+tr.z3 td:first-child{box-shadow:inset -3px 0 var(--live)}
+.legend{font-size:11px;color:var(--mute);margin:8px 4px}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:8px;font:inherit;color:inherit}
+.tc .badge{width:44px;height:44px;font-size:19px}
+.tc small{color:var(--mute);font-size:11px}
+.empty{text-align:center;color:var(--mute);padding:40px 10px}
+#sheet{position:fixed;inset:0;background:rgba(10,25,20,.5);display:none;align-items:flex-end;z-index:5}
+#sheet.on{display:flex}
+#sheet .box{background:var(--chalk);width:100%;max-height:82%;overflow-y:auto;border-radius:16px 16px 0 0;padding:16px 12px calc(20px + env(safe-area-inset-bottom,0px))}
+.th{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.th .badge{width:48px;height:48px;font-size:21px}
+.th h2{font-size:18px}
+.th small{color:var(--mute)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:6px}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:10px;text-align:center;padding:8px 2px}
+.stats b{display:block;font-size:17px}
+.stats small{font-size:11px;color:var(--mute)}
+</style>
+</head>
+<body>
+<header>
+  <h1><i></i>گل‌نما</h1>
+  <div class="note" id="note">داده‌های نمونه — برای نتایج زنده کلید API را در بالای کد بگذارید</div>
+</header>
+<main id="main"></main>
+<nav>
+  <button data-t="matches" class="on">بازی‌ها</button>
+  <button data-t="table">جدول</button>
+  <button data-t="teams">تیم‌ها</button>
+</nav>
+<div id="sheet"><div class="box" id="box"></div></div>
+
+<script>
+/* ===== تنظیمات =====
+   برای نتایج زنده: کلید رایگان football-data.org را اینجا بگذارید.
+   (فعلاً خالی است و برنامه از داده‌های نمونه استفاده می‌کند) */
+const API_KEY = "c71a8dbf4e6f41a69470acc6ff7a3229";
+
+/* ===== داده‌های نمونه ===== */
+const LEAGUES = {
+  ir: "لیگ برتر ایران",
+  es: "لالیگا",
+  en: "لیگ برتر انگلیس"
+};
+const COLORS = {};
+// تیم: [نام, رنگ]
+const TEAMS = {
+  ir: [["پرسپولیس","#c8102e"],["استقلال","#1d5fb4"],["سپاهان","#d4a017"],["تراکتور","#9c1c1c"]],
+  es: [["رئال مادرید","#6b5fb5"],["بارسلونا","#a50044"],["اتلتیکو مادرید","#c8102e"],["ژیرونا","#d4352b"]],
+  en: [["منچسترسیتی","#6caddf"],["آرسنال","#d7263d"],["لیورپول","#b5121b"],["چلسی","#1e4fa3"]]
+};
+Object.values(TEAMS).flat().forEach(([n,c])=>COLORS[n]=c);
+// جدول: نام، بازی، برد، مساوی، باخت، گل زده، گل خورده
+const STAND = {
+  ir: [["پرسپولیس",10,7,2,1,19,7],["استقلال",10,6,3,1,16,8],["سپاهان",10,5,3,2,14,9],["تراکتور",10,3,2,5,10,14]],
+  es: [["رئال مادرید",11,8,2,1,24,9],["بارسلونا",11,8,1,2,26,12],["اتلتیکو مادرید",11,6,3,2,17,10],["ژیرونا",11,3,3,5,12,17]],
+  en: [["منچسترسیتی",11,8,1,2,25,11],["آرسنال",11,7,3,1,20,8],["لیورپول",11,7,2,2,21,12],["چلسی",11,4,3,4,15,14]]
+};
+// st: live | ft | ns
+let MATCHES = [
+  {l:"ir",h:"پرسپولیس",a:"استقلال",hs:1,as:1,st:"live",t:"۶۳'"},
+  {l:"ir",h:"سپاهان",a:"تراکتور",hs:2,as:0,st:"ft",t:"پایان"},
+  {l:"es",h:"رئال مادرید",a:"بارسلونا",hs:2,as:1,st:"live",t:"۷۸'"},
+  {l:"es",h:"اتلتیکو مادرید",a:"ژیرونا",hs:3,as:1,st:"ft",t:"پایان"},
+  {l:"en",h:"آرسنال",a:"منچسترسیتی",hs:0,as:0,st:"ns",t:"۲۰:۳۰"},
+  {l:"en",h:"لیورپول",a:"چلسی",hs:2,as:2,st:"ft",t:"پایان"},
+  {l:"ir",h:"استقلال",a:"سپاهان",hs:0,as:0,st:"ns",t:"۱۹:۰۰"}
+];
+
+/* ===== ابزارها ===== */
+const $ = s => document.querySelector(s);
+const fa = n => Number(n).toLocaleString("fa-IR",{useGrouping:false});
+const CRESTS = {};
+const badge = n => CRESTS[n]
+  ? `<span class="badge cr"><img src="${CRESTS[n]}" alt="" onerror="this.parentNode.className='badge';this.parentNode.style.background='#555';this.parentNode.textContent='${n[0]}'"></span>`
+  : `<span class="badge" style="background:${COLORS[n]||"#555"}">${n[0]}</span>`;
+let tab = "matches", filter = "all", league = "ir";
+
+function rows(l){
+  return STAND[l].map(([n,p,w,d,L,gf,ga])=>({n,p,w,d,L,gf,ga,gd:gf-ga,pt:w*3+d}))
+    .sort((a,b)=>b.pt-a.pt||b.gd-a.gd||b.gf-a.gf);
+}
+
+/* ===== صفحه‌ها ===== */
+function viewMatches(){
+  const F = {all:"همه",live:"زنده",ft:"تمام‌شده",ns:"آینده"};
+  let h = `<div class="chips">${Object.entries(F).map(([k,v])=>`<button class="chip ${k===filter?"on":""}" data-f="${k}">${v}</button>`).join("")}</div>`;
+  let any = false;
+  for (const l in LEAGUES){
+    const list = MATCHES.filter(m=>m.l===l && (filter==="all"||m.st===filter))
+      .sort((a,b)=>(b.st==="live")-(a.st==="live")||(a.d||"").localeCompare(b.d||""));
+    if(!list.length) continue;
+    any = true;
+    h += `<div class="lg">${LEAGUES[l]}</div>` + list.map(m=>`
+      <div class="m">
+        <div class="tm">${badge(m.h)}<span>${m.h}</span></div>
+        <div class="sc ${m.st==="live"?"live":""}">
+          <b>${m.st==="ns"?"–":fa(m.hs)+" : "+fa(m.as)}</b><small>${m.t}</small>
+        </div>
+        <div class="tm away">${badge(m.a)}<span>${m.a}</span></div>
+      </div>`).join("");
+  }
+  return h + (any?"":`<div class="empty">بازی‌ای پیدا نشد</div>`);
+}
+
+function viewTable(){
+  const r = rows(league);
+  return `<div class="chips">${Object.entries(LEAGUES).map(([k,v])=>`<button class="chip ${k===league?"on":""}" data-l="${k}">${v}</button>`).join("")}</div>
+  <table><tr><th class="n">تیم</th><th>بازی</th><th>برد</th><th>مس</th><th>باخت</th><th>تفاضل</th><th>امتیاز</th></tr>
+  ${r.map((x,i)=>`<tr class="${i===0?"z1":i===r.length-1?"z3":""}">
+    <td class="n"><div class="tm">${fa(i+1)}&nbsp;${badge(x.n)}<span>${x.n}</span></div></td>
+    <td>${fa(x.p)}</td><td>${fa(x.w)}</td><td>${fa(x.d)}</td><td>${fa(x.L)}</td>
+    <td dir="ltr">${x.gd>0?"+":""}${fa(x.gd)}</td><td class="pt">${fa(x.pt)}</td></tr>`).join("")}
+  </table>
+  <div class="legend">نوار سبز: صدرنشین — نوار قرمز: انتهای جدول</div>`;
+}
+
+function viewTeams(){
+  let h = "";
+  for (const l in TEAMS){
+    h += `<div class="lg">${LEAGUES[l]}</div><div class="tgrid">` +
+      rows(l).map(({n})=>`<button class="tc" data-team="${n}" data-lg="${l}">${badge(n)}<b>${n}</b><small>${fa(rows(l).findIndex(x=>x.n===n)+1)}ام جدول</small></button>`).join("") + `</div>`;
+  }
+  return h;
+}
+
+function openTeam(n,l){
+  const r = rows(l), i = r.findIndex(x=>x.n===n), x = r[i];
+  const ms = MATCHES.filter(m=>m.h===n||m.a===n);
+  $("#box").innerHTML = `
+    <div class="th">${badge(n)}<div><h2>${n}</h2><small>${LEAGUES[l]} — رتبه ${fa(i+1)}</small></div></div>
+    <div class="stats">
+      <div><b>${fa(x.pt)}</b><small>امتیاز</small></div>
+      <div><b>${fa(x.w)}</b><small>برد</small></div>
+      <div><b>${fa(x.gf)}</b><small>گل زده</small></div>
+      <div><b>${fa(x.ga)}</b><small>گل خورده</small></div>
+    </div>
+    <div class="lg">بازی‌های اخیر و پیش‌رو</div>
+    ${ms.map(m=>`<div class="m"><div class="tm">${badge(m.h)}<span>${m.h}</span></div>
+      <div class="sc ${m.st==="live"?"live":""}"><b>${m.st==="ns"?"–":fa(m.hs)+" : "+fa(m.as)}</b><small>${m.t}</small></div>
+      <div class="tm away">${badge(m.a)}<span>${m.a}</span></div></div>`).join("")||`<div class="empty">بازی‌ای ثبت نشده</div>`}`;
+  $("#sheet").classList.add("on");
+}
+
+/* ===== رندر و رویدادها ===== */
+function render(){
+  const y = $("#main").scrollTop;
+  $("#main").innerHTML = tab==="matches"?viewMatches():tab==="table"?viewTable():viewTeams();
+  $("#main").scrollTop = y;
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===tab));
+}
+document.addEventListener("click",e=>{
+  const t = e.target.closest("button,#sheet");
+  if(!t) return;
+  if(t.id==="sheet"){ if(e.target.id==="sheet") t.classList.remove("on"); return; }
+  if(t.dataset.t){ tab=t.dataset.t; $("#main").scrollTop=0; render(); }
+  else if(t.dataset.f){ filter=t.dataset.f; render(); }
+  else if(t.dataset.l){ league=t.dataset.l; render(); }
+  else if(t.dataset.team){ openTeam(t.dataset.team,t.dataset.lg); }
+});
+render();
+
+/* ===== اتصال به API ===== */
+const BASE = "https://api.football-data.org/v4";
+const CODES = {en:"PL", es:"PD"};          // لیگ ایران در پلن رایگان نیست و نمونه می‌ماند
+// ترجمه اسم تیم‌ها بر اساس کد سه‌حرفی؛ تیم‌های ناشناخته انگلیسی نمایش داده می‌شوند
+const FA = {
+  ARS:"آرسنال",AVL:"استون ویلا",BOU:"بورنموث",BRE:"برنتفورد",BHA:"برایتون",BUR:"برنلی",CHE:"چلسی",CRY:"کریستال پالاس",
+  EVE:"اورتون",FUL:"فولام",LEE:"لیدز",LIV:"لیورپول",MCI:"منچسترسیتی",MUN:"منچستریونایتد",NEW:"نیوکاسل",NOT:"ناتینگهام",NFO:"ناتینگهام",
+  SUN:"ساندرلند",TOT:"تاتنهام",WHU:"وستهام",WOL:"ولوز",
+  RMA:"رئال مادرید",FCB:"بارسلونا",BAR:"بارسلونا",ATM:"اتلتیکو مادرید",ATL:"اتلتیکو مادرید",ATH:"اتلتیک بیلبائو",SEV:"سویا",VAL:"والنسیا",
+  VIL:"ویارئال",BET:"بتیس",RSO:"رئال سوسیداد",GIR:"ژیرونا",CEL:"سلتاویگو",OSA:"اوساسونا",GET:"خیتافه",ALA:"آلاوس",RAY:"رایو وایکانو",
+  MLL:"مایورکا",ESP:"اسپانیول",LEV:"لوانته",ELC:"التچه",OVI:"اوویدو"
+};
+const tr = t => FA[t.tla] || t.shortName || t.name;
+const note = t => $("#note").textContent = t;
+const ymd = d => d.toISOString().slice(0,10);
+async function api(path){
+  const r = await fetch(BASE+path,{headers:{"X-Auth-Token":API_KEY}});
+  if(!r.ok) throw new Error(r.status);
+  return r.json();
+}
+let tick = 0;
+async function loadLive(){
+  if(!API_KEY) return;
+  try{
+    const day = 864e5, now = Date.now(), rev = {};
+    for(const k in CODES) rev[CODES[k]] = k;
+    const md = await api(`/matches?competitions=${Object.values(CODES).join(",")}&dateFrom=${ymd(new Date(now-2*day))}&dateTo=${ymd(new Date(now+3*day))}`);
+    const live = md.matches.map(m=>{
+      const st = ["IN_PLAY","PAUSED"].includes(m.status)?"live":m.status==="FINISHED"?"ft":"ns";
+      const d = new Date(m.utcDate), h = tr(m.homeTeam), a = tr(m.awayTeam), sc = m.score.fullTime;
+      if(m.homeTeam.crest) CRESTS[h] = m.homeTeam.crest;
+      if(m.awayTeam.crest) CRESTS[a] = m.awayTeam.crest;
+      return {l:rev[m.competition.code],h,a,hs:sc.home??0,as:sc.away??0,st,d:m.utcDate,
+        t: st==="live"?(m.status==="PAUSED"?"استراحت":"زنده"):st==="ft"?"پایان"
+          : d.toLocaleDateString("fa-IR",{day:"numeric",month:"short"})+"<br>"+d.toLocaleTimeString("fa-IR",{hour:"2-digit",minute:"2-digit"})};
+    }).filter(m=>m.l);
+    MATCHES = MATCHES.filter(m=>m.l==="ir").concat(live);
+    if(tick++ % 10 === 0){                      // جدول هر ۱۰ دقیقه، بازی‌ها هر دقیقه
+      for(const l in CODES){
+        const sd = await api(`/competitions/${CODES[l]}/standings`);
+        const t = (sd.standings.find(x=>x.type==="TOTAL")||sd.standings[0]).table;
+        STAND[l] = t.map(x=>{
+          const n = tr(x.team); if(x.team.crest) CRESTS[n] = x.team.crest;
+          return [n,x.playedGames,x.won,x.draw,x.lost,x.goalsFor,x.goalsAgainst];
+        });
+      }
+    }
+    note("زنده از football-data.org — "+new Date().toLocaleTimeString("fa-IR",{hour:"2-digit",minute:"2-digit"}));
+    render();
+  }catch(e){
+    note("اتصال به API ناموفق بود (کد "+e.message+") — داده نمونه نمایش داده می‌شود");
+  }
+}
+loadLive();
+setInterval(loadLive,60000);
+</script>
+</body>
+</html>
